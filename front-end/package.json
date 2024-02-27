@@ -1,0 +1,23 @@
+{
+  "name": "leo-mem-ory",
+  "version": "1.0.0",
+  "description": "A memory game based on memes ¯\\(ツ)\\/¯.",
+  "main": "\\",
+  "scripts": {
+    "start": "http-server -c-1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Esscraye/web-01.git"
+  },
+  "author": "leo Baleras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Esscraye/web-01/issues"
+  },
+  "homepage": "https://github.com/Esscraye/web-01#readme",
+  "private": true,
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
