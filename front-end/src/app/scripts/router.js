@@ -4,9 +4,7 @@
  * @param HTMLElement template the template to append
  */
 function renderTemplate(outlet, template) {
-  while (outlet.lastChild) {
     outlet.replaceChildren(template);
-  }
 }
 
 /**
