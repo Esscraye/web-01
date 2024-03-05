@@ -1,6 +1,8 @@
-import { parseUrl } from "./utils.js";
-import template from "../views/score.html";
-import { Component } from "./component.js";
+import { parseUrl } from "../../scripts/utils.js";
+import template from "./score.component.html";
+import { Component } from "../../scripts/component.js";
+import "./score.component.css";
+
   /* class ScoreComponent constructor */
   export class ScoreComponent extends Component {
     constructor() {
