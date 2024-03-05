@@ -10,7 +10,6 @@ const environment = {
   },
 };
 
-/* class GameComponent constructor */
 export class GameComponent extends Component {
   constructor() {
     // gather parameters from URL
