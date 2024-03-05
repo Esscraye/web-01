@@ -1,7 +1,7 @@
 import { Component } from "../../scripts/component";
 import template from "./welcome.component.html";
 import "./welcome.component.css";
-  /* class WelcomeComponent constructor  */
+
 export class WelcomeComponent extends Component {
   constructor() {
     super(template);
@@ -12,8 +12,7 @@ export class WelcomeComponent extends Component {
 
     form.addEventListener(
       "submit",
-      // TODO #arrow-function: use arrow function instead.
-      function (event) {
+      (event) => {
         event.preventDefault();
         if (form.checkValidity() === false) {
           event.stopPropagation();
@@ -24,7 +23,7 @@ export class WelcomeComponent extends Component {
 
           this._startGame(name, size);
         }
-      }.bind(this),
+      },
       false
     );
 
@@ -36,6 +35,3 @@ export class WelcomeComponent extends Component {
     window.location = `${gamePage}?name=${name}&size=${size}`;
   }
 }
-  // put component in global scope, to be runnable right from the HTML.
-  // TODO #class: turn function into a method of WelcomeComponent
-  /* method WelcomeComponent.init */

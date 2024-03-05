@@ -17,7 +17,7 @@ export class GameComponent extends Component {
     super(template);
     const params = parseUrl();
 
-    // save player name & game ize
+    // save player name & game size
     this._name = params.name;
     this._size = parseInt(params.size) || 9;
     this._flippedCard = null;

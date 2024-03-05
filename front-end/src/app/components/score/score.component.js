@@ -3,7 +3,6 @@ import template from "./score.component.html";
 import { Component } from "../../scripts/component.js";
 import "./score.component.css";
 
-  /* class ScoreComponent constructor */
   export class ScoreComponent extends Component {
     constructor() {
     super(template);
@@ -19,7 +18,3 @@ import "./score.component.css";
     document.getElementById("time").innerText = this.time;
   };
 }
-
-  // put component in global scope, to be runnable right from the HTML.
-
-  /* method ScoreComponent.init */
