@@ -1,9 +1,13 @@
-.score-cmp img.happy:hover {
-    animation: shake 0.5s;
-  
+$animation-duration: 0.5s;
+$animation-name: shake;
+
+.score-cmp {
+  img.happy:hover {
+    animation: $animation-name $animation-duration;
     animation-iteration-count: infinite;
   }
-  
+}
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);

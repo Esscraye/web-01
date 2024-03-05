@@ -1,0 +1,12 @@
+$grid-gap: 1em;
+$grid-template-columns: repeat(auto-fill, minmax(calc(12% - 1rem), 100px));
+
+.game-cmp {
+  .cards {
+    display: grid;
+    grid-template-columns: $grid-template-columns;
+    grid-auto-flow: row dense;
+    grid-row-gap: $grid-gap;
+    grid-column-gap: $grid-gap;
+  }
+}

@@ -2,7 +2,7 @@ import { parseUrl } from "../../scripts/utils.js";
 import template from "./game.component.html";
 import { Component } from "../../scripts/component.js";
 import { CardComponent } from "./card/card.component.js";
-import "./game.component.css";
+import "./game.component.scss";
 
 const environment = {
   api: {
