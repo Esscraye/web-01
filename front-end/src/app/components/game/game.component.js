@@ -3,6 +3,7 @@ import template from "./game.component.html";
 import { Component } from "../../scripts/component.js";
 import { CardComponent } from "./card/card.component.js";
 import "./game.component.scss";
+import * as localforage from "localforage/dist/localforage";
 
 const environment = {
   api: {
@@ -20,29 +21,46 @@ export class GameComponent extends Component {
     this._name = params.name;
     this._size = parseInt(params.size) || 9;
     this._flippedCard = null;
-    this._matchedPairs = 0;
+    localforage.getItem('machedPairs').then((value) => {
+      this._matchedPairs = value || 0;
+    }
+    ).catch((err) => {
+      console.error('Error getting matched pairs:', err);
+    });
   }
 
   async init() {
     // fetch the cards configuration from the server
     this._config = await this.fetchConfig();
     this._boardElement = document.querySelector(".cards");
-        // create cards out of the config
-        this._cards = this._config.ids.map(id => new CardComponent(id));
-  
-        this._cards.forEach(card => {
-          this._boardElement.appendChild(card.getElement());
+    
+    // create cards out of the config
+    let savedGameState = await localforage.getItem('gameState');
+    if (savedGameState) {
+      this._cards = JSON.parse(savedGameState).map(card => new CardComponent(card._id, card.flipped, card.matched));
+      this._cards.forEach(card => {
+        if (card.flipped && card.matched) {
+          card.flip();
+          card._flipped = true;
+        }
+      });
+    } else {
+      this._cards = this._config.ids.map(id => new CardComponent(id));
+    }
 
-          card.getElement().addEventListener(
-            "click",
-            () => {
-              this._flipCard(card);
-            }
-          );
-        });
-  
-        this.start();
-      };
+    this._cards.forEach(card => {
+      this._boardElement.appendChild(card.getElement());
+
+      card.getElement().addEventListener(
+        "click",
+        () => {
+          this._flipCard(card);
+        }
+      );
+    });
+
+    this.start();
+  };
 
 
   start() {
@@ -83,7 +101,7 @@ export class GameComponent extends Component {
     }, 750);
   };
 
-  _flipCard(card) {
+  async _flipCard(card) {
     if (this._busy) {
       return;
     }
@@ -110,8 +128,23 @@ export class GameComponent extends Component {
   
         // reset flipped card for the next turn.
         this._flippedCard = null;
+
+        let gameState = this._cards.map(card => ({
+          _id: card._id,
+          flipped: card.flipped,
+          matched: card.matched
+        }));
+    
+        localforage.setItem('machedPairs', this._matchedPairs)
+    
+        localforage.setItem('gameState', JSON.stringify(gameState))
   
         if (this._matchedPairs === this._size) {
+
+          localforage.setItem('machedPairs', null)
+
+          localforage.setItem('gameState', null)
+
           this.goToScore();
         }
       } else {
