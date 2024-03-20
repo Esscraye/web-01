@@ -88,13 +88,15 @@ export class GameComponent extends Component {
     }
   }
 
-  goToScore() {
+  async goToScore() {
     const timeElapsedInSeconds = Math.floor(
       (Date.now() - this._startTime) / 1000
     );
     clearInterval(this._timer);
+
+    await this.saveScore(timeElapsedInSeconds);
   
-    setTimeout(() => {
+    setTimeout(async () => {
       const scorePage = "./#score";
       window.location =
         `${scorePage}?name=${this._name}&size=${this._size}&time=${timeElapsedInSeconds}`;
@@ -162,6 +164,23 @@ export class GameComponent extends Component {
           this._flippedCard = null;
         }, 500);
       }
+    }
+  };
+
+  async saveScore(timeElapsedInSeconds) {
+    const name = this._name;
+    const time = timeElapsedInSeconds;
+    const size = this._size;
+
+    if (name) {
+      await fetch(`${environment.api.host}/scores`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, time, size }),
+      });
     }
   };
 }
