@@ -29,14 +29,14 @@ const CARDS_IMAGE = [
   
 /* class CardComponent constructor */
 export class CardComponent extends Component {
-	constructor(id) {
+	constructor(id, flipped = false, matched = false) {
 		// is this card flipped?
 		super(CardTemplate);
-		this._flipped = false;
+		this._flipped = flipped;
 		this.template = CardTemplate;
 
 		// has the matching card has been discovered already?
-		this.matched = false;
+		this.matched = matched;
 
 		this._elt = document.createElement("div");
 		this._elt.innerHTML = this.template;
